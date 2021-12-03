@@ -41,7 +41,6 @@
 
 //#define CLOCK_PIN 13
 
-
 // Define the array of leds
 //CRGB strip1[NUM_LEDS];
 //CRGB strip2[NUM_LEDS];
@@ -55,7 +54,7 @@ int brightness = 60;
 int saturation = 255;
 int x = 0;
 int xSpeed = 1;
-
+int pattern = 1;
 
 CHSV red = CHSV(0, saturation, brightness);
 CHSV orange = CHSV(32, saturation, brightness);
@@ -67,7 +66,7 @@ CHSV purple = CHSV(192, saturation, brightness);
 CHSV pink = CHSV(224, saturation, brightness);
 
 int speedDelay = 10;
-int ledPos = 5;
+int ledPos = 0;
 int direction = 1;
 int colorPos = 0;
 int groupSize = 1;
@@ -79,27 +78,22 @@ CHSV color[] = {red, orange, yellow, green, aqua, blue, purple, pink};
 
 //define colors
 
-
-
-
-
-
-
-void setup() {
+void setup()
+{
   // Uncomment/edit one of the following lines for your leds arrangement.
   // FastLED.addLeds<TM1803, DATA_PIN, RGB>(leds, NUM_LEDS);
   // FastLED.addLeds<TM1804, DATA_PIN, RGB>(leds, NUM_LEDS);
   // FastLED.addLeds<TM1809, DATA_PIN, RGB>(leds, NUM_LEDS);
-   FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(strips, NUM_LEDS);
+  FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(strips, NUM_LEDS);
   // FastLED.addLeds<WS2812, DATA_PIN, RGB>(leds, NUM_LEDS);
   // FastLED.addLeds<WS2812B, DATA_PIN, RGB>(leds, NUM_LEDS);
-//  FastLED.addLeds<NEOPIXEL, 1>(strips[6], NUM_LEDS);
-//  FastLED.addLeds<LED_TYPE, 2>(strips, NUM_LEDS);
-//  FastLED.addLeds<NEOPIXEL, 3>(strips[4], NUM_LEDS);
-//  FastLED.addLeds<NEOPIXEL, 4>(strips[3], NUM_LEDS);
-//  FastLED.addLeds<NEOPIXEL, 5>(strips[2], NUM_LEDS);
-//  FastLED.addLeds<NEOPIXEL, 6>(strips[1], NUM_LEDS);
-//  FastLED.addLeds<NEOPIXEL, 7>(strips[0], NUM_LEDS);
+  //  FastLED.addLeds<NEOPIXEL, 1>(strips[6], NUM_LEDS);
+  //  FastLED.addLeds<LED_TYPE, 2>(strips, NUM_LEDS);
+  //  FastLED.addLeds<NEOPIXEL, 3>(strips[4], NUM_LEDS);
+  //  FastLED.addLeds<NEOPIXEL, 4>(strips[3], NUM_LEDS);
+  //  FastLED.addLeds<NEOPIXEL, 5>(strips[2], NUM_LEDS);
+  //  FastLED.addLeds<NEOPIXEL, 6>(strips[1], NUM_LEDS);
+  //  FastLED.addLeds<NEOPIXEL, 7>(strips[0], NUM_LEDS);
   // FastLED.addLeds<APA104, DATA_PIN, RGB>(leds, NUM_LEDS);
   // FastLED.addLeds<UCS1903, DATA_PIN, RGB>(leds, NUM_LEDS);
   // FastLED.addLeds<UCS1903B, DATA_PIN, RGB>(leds, NUM_LEDS);
@@ -119,58 +113,57 @@ void setup() {
   // FastLED.addLeds<P9813, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);
   // FastLED.addLeds<APA102, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);
   // FastLED.addLeds<DOTSTAR, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);
-FastLED.setBrightness(20);
+  FastLED.setBrightness(20);
 
-// black out strib before doing anything to clear previouse program
-for(int i = 0; i < NUM_LEDS; i++){
-  strips[i] = CRGB::Black;
-}
-FastLED.show();
-delay(1000);
-}
-
-void loop() {
-
-// set all lights to current set color 
-for(int i = 0; i < NUM_LEDS; i++){
-  strips[i] = CHSV(h, s, v);
+  // black out strib before doing anything to clear previouse program
+  for (int i = 0; i < NUM_LEDS; i++)
+  {
+    strips[i] = CRGB::Black;
+  }
+  FastLED.show();
+  delay(1000);
 }
 
-// show changes
-FastLED.show();
+void loop()
+{
 
-//update hue value
-h = h + 1;
-if ( h >= 255){
-  h = 0;
+  if (pattern == 1)
+  {
+
+    // turn all lights to current set color
+    for (int i = 0; i < NUM_LEDS; i++)
+    {
+      strips[i] = CHSV(h, s, v);
+    }
+
+    // show changes
+    FastLED.show();
+
+    //update hue value
+    h = h + 1;
+    if (h >= 255)
+    {
+      h = 0;
+    }
+
+    delay(100);
+  }
 }
 
-delay(100);
-
-}
-
-
-  
 // for (int i = 0; i < 7 ; i++){
 //
-//  
+//
 //  strips[20+i] = CHSV(224, saturation, (brightness - i));
 //  FastLED.show();
 ////  strips[20+i] = CRGB::Black;
 //  delay(30);
-//  
+//
 //
 //  if(x>99){
-//    xSpeed *= -1; 
+//    xSpeed *= -1;
 //  }
 //  x += xSpeed;
 //
-//  
-//  
+//
+//
 // }
-
-
-
-
-
-
