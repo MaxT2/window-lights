@@ -121,7 +121,7 @@ void setup()
     strips[i] = CRGB::Black;
   }
   FastLED.show();
-  delay(1000);
+  FastLED.delay(1000);
 }
 
 void loop()
@@ -146,7 +146,21 @@ void loop()
       h = 0;
     }
 
-    delay(100);
+    FastLED.delay(100);
+  }
+  else if (pattern == 2)
+  {
+
+    // turn all lights to current set color
+    for (int i = ledPos; i < 5; i++)
+    {
+      strips[i] = CHSV(h, s, v);
+    }
+
+    // show changes
+    FastLED.show();
+
+    FastLED.delay(100);
   }
 }
 
