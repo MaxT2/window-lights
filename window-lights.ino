@@ -1,4 +1,3 @@
-
 #include <bitswap.h>
 #include <chipsets.h>
 #include <color.h>
@@ -140,7 +139,7 @@ for(int i = 0; i < NUM_LEDS; i++){
 // show changes
 FastLED.show();
 
-//
+//update hue value
 h = h + 1;
 if ( h >= 255){
   h = 0;
@@ -148,7 +147,7 @@ if ( h >= 255){
 
 delay(100);
 
-
+}
 
 
   
@@ -175,4 +174,3 @@ delay(100);
 
 
 
-}
